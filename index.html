@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="scripts/jquery-2.1.1.js"></script>
+        <script src="stylesheet" href="scripts/jquery.mobile-1.4.5.js"></script>
+        <script type="text/javascript">
+            function loadPage() {
+                // The full path to the PHP proxy
+                var url = 'proxy.php?sova_link=https://sova.pitt.edu';
+                 // Create xmlhttprequest object
+                var xmlhttp = null;
+                if (window.XMLHttpRequest) {
+                        xmlhttp = new XMLHttpRequest();
+                        //make sure that Browser supports overrideMimeType
+                        if ( typeof xmlhttp.overrideMimeType != 'undefined') { xmlhttp.overrideMimeType('text/xml'); }
+                } else if (window.ActiveXObject) {
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }  else {
+                        alert('Perhaps your browser does not support xmlhttprequests?');
+                }
+
+                // Create an HTTP GET request
+                xmlhttp.open('GET', url, true);
+
+                // Set the callback function
+                xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                          // Output the results
+                          var bodydiv = document.getElementById('home');
+
+                          bodydiv.innerHTML = xmlhttp.responseText;
+                        } else {
+                                  // waiting for the call to complete
+                        }
+                    };
+
+                // Make the actual request
+                xmlhttp.send(null);
+            }     
+        </script>
+    </head>
+    <body>
+        <div data-role="page" id="home">
+            <script>loadPage();</script>
+        </div>
+    </body>
+</html>
